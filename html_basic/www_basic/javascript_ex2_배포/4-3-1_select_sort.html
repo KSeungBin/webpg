@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <!-- 들여쓰기 자동 정리 
+    - shift+Alt+F : 문서 전체 정렬 
+    - ctrl + k -> ctrl +f : 선택 영역만 정렬  -->
+  <!-- Material Design Icons(확장 모듈 설치) : 아아콘 모양 바꾸기  -->
+<head>
+  <title>실습 4-2-2 선택 정렬</title>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <form name="inputForm">
+    <div>
+      선택 정렬
+    </div>
+    <div>
+      <input name="str" type="text" size="50" />
+      <input type="button" value="정렬하기" onClick="doSort()" />
+    </div>
+  </form>
+  <form name="outputForm">
+    <div>
+      정렬 결과
+    </div>
+    <div>    
+      <!-- alt + l + o 눌러 구조를 확인해보기 -->
+      <!-- form 안에는 버튼, text area 등이 있다(prompt를 제외하고, 사용자가 무언가를 입력할 때 사용) -->
+    </div>
+  </form>
+  <script> 사용자
+    function doSort() {
+      let $input = document.forms.inputForm
+      // 뷰포트에 들어가는 html 문서 전체 = document
+      // 변수의 식별자 앞에 $를 사용할 수 있음(변수명) = document.element.name
+      // 파이썬은 _, js는 $와 _ 두 가지 특수기호 사용할 수 있음
+      let $output = document.forms.outputForm
+      let ary = $input.str.value.split(",")
+      // split 메서드: 구분자로 구분해서 왼쪽 변수(식별자)에 return 해주는 역할
+      ary = ary.map(function (e) {
+        return Number(e) 
+        //  string으로 되어 있던 배열값을 숫자값으로 변환하여 변수 어레이(ary)에 대입
+        // const는 값을 바꿀 수 없지만, let은 변수를 새로 선언하는 것은 안되지만 새로운 값을 대입하는 것은 가능
+      });
+      $output.result.value = ary.join(' ') + '\n'
+      // $output.result.value는 브라우저에서, 텍스트 상자에 숫자 array를 입력하고 '정렬하기' 버튼을 눌렀을 때 텍스트상자에 뜨는 값
+      $output.result.value = $output.result.value + "---" + '\n'
+      selectionSort(ary);
+      $output.result.value = $output.result.value + "---" + '\n'
+      printAry(ary);
+      $output.result.value = $output.result.value + "done!" + '\n'
+      // 함수 selectionSort(ary)
+      //      입력: ary 정렬 전의 배열
+      //      출력: 없음(ary의 내용이 정렬됨)
+      function selectionSort(arr) {
+        const arrLen = arr.length
+        for (let i = 0; i < arrLen-1; i++) {
+          let minIdx = i; // 작은 값이 있는 인덱스
+          for (let j = i + 1; j < arrLen; j++) {
+            // 기준값인 minIdx의 위치 값보다 작은 값이면 minIdx에 j를 대입
+            if (arr[minIdx] > arr[j]) minIdx = j            
+            printAry(arr); // 중간값 출력
+          }
+          if(minIdx !== i){
+            [arr[minIdx], arr[i]] = [arr[i], arr[minIdx]]
+          }
+        }
+        return arr
+      }
+      // 함수 printAry(ary)
+      //      입력: ary 표시할 배열
+      //      출력: 없음
+      function printAry(ary) {
+        $output.result.value = $output.result.value + ary.join(' ') + '\n'
+      }
+    }
+  </script>
+</body>
+
+</html>

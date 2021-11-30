@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // document.createElement(문서객체) : 문서 객체 생성하기
+      // 부모객체.appendChild(문서객체) 문서객체 추가하기 생성하기
+      {
+        const header = document.createElement('h1')
+        // body 안에 있는 h1이 아님
+        // h1 tag(element)를 새로 생성하여 아래 코드처럼 속성을 지정해주고 스타일 적용
+
+        // 생성한 태그 조작하기
+        header.textContent = '문서 객체 동적으로 생성하기'
+        header.setAttribute('data-custom', '사용자 정의 속성')
+        header.style.color = 'white'
+        header.style.backgroundColor = 'black'
+
+        // h1 태그를 body 태그 아래에 추가하기
+        document.body.appendChild(header)
+        // header를 body 아래에 append
+      }
+
+      //문서객체 이동하기
+      {
+        const divA = document.querySelector('#first')
+        const divB = document.querySelector('#second')
+        const h1Move = document.createElement('h1')
+        h1Move.textContent = '이동하는 h1 태그'
+
+        // 서로 번갈아가면서 실행하는 함수를 구현합니다.
+        const toFirst = () => {
+          divA.appendChild(h1Move)
+          setTimeout(toSecond, 2000)
+          // 화살표 함수로 정의해서 변수에 대입 -> 정의한 변수를 매개변수로 사용하여 2초와 3초 간격으로 번갈아 수행
+        }
+        const toSecond = () => {
+          divB.appendChild(h1Move)
+          setTimeout(toFirst, 3000)
+        }
+        toFirst()
+      }
+      //문서객체.parentNode.removeChild(자식객체) : 문서 객체 제거하기
+      {
+        setTimeout(() => {
+          const h2 = document.querySelector('h2')
+          h2.parentNode.removeChild(h2)
+        }, 5000)
+        // 브라우저를 열고 5초가 지나면 해당 element를 삭제하는 것
+        // element는 동적으로 create할 수도 있고(식별자로 정의하여 속성과 style지정)
+        // 이벤트별로 or 특정 시간을 지정하여 요소를 동적으로 제거할 수도 있다.
+      }
+    })
+    </script>
+  </head>
+  <body>
+    <div id="first">
+      <h1>첫 번째 div 태그 내부</h1>
+    </div>
+    <hr>
+    <div id="second">
+      <h1>두 번째 div 태그 내부</h1>
+    </div>
+    <hr>
+    <h2>제거 대상 문서 객체</h2>
+    <hr>
+  </body>
+</html>

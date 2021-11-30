@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script>
+      // 1. DOMContentLoaded 이벤트 연결
+      document.addEventListener('DOMContentLoaded', () => {
+        // 요소를 읽어들임
+        const $header = document.querySelector('h1.test')
+        // body안에 있는 것 중 selector 하나(h1)를 갖고와 식별자에 저장($header) : single quotation 해야 함
+        // 동적으로 홈페이지를 구성하는 것: 마우스 클릭, 마우스 hover 등등 이벤트마다 listner가 따로 있는데, 아래 처럼 css 속성값을 지정해주고 해당 이벤트를 수행하면 홈페이지의 뷰포트가 변함
+        
+
+        // 텍스트와 스타일을 변경함
+        // $header.textContent = 'HEADERS'  여기를 주석처리해야 제대로 반영됨
+        $header.style.color = 'white'
+        $header.style.backgroundColor = 'black'
+        $header.style.padding = '10px'
+        //  css 속성(color...) 값을 저장할 때는 single quotation + 값의 단위(px...)까지 다 써줘야 한다.
+      })
+    </script>
+  </head>
+  <body>
+    <h1></h1>
+    <h1 class="test">test</h1>
+    <h1></h1>
+    <h1></h1>
+
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<html>
+
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src=",./jquery/js/lightbox-plus-jquery.min.js"></script>
+  <!-- 위 코드는 min, 즉 최신 버전으로 윗부분에 작성해줘야 bxslider와 충돌이 발생하지 않는다 -->
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  <!-- CDN으로 연결되어 있음. 내 로컬에서 사용하고 싶으면 다른 코드로 작성해주면 됨 -->
+
+
+
+  <!-- jquery 라이브러리를 이용해 플러그인을 만들었기 때문에 jquery 라이브러리 코드 아래에 해당 코드를 복붙 -->
+  <link rel="stylesheet" href="../jquery/css/lightbox.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+
+  <!-- 'key=' 다음, '&연산자' 앞에 복사한 API 키번호를 붙여넣기 하면 구글지도가 웹상에 뜬다 -->
+  <script src="https://maps.googleapis.com/maps/api/js?key= &callback=initMap" async defer></script>
+
+  <script>
+    // body(html요소)부분을 구성하는 css 요소 기술. 따라서, bxslider의 js 코드를 복붙 
+    $(document).ready(function () {
+      $('.slider').bxSlider();
+      // 아래 코드의 클래스가 bxslider이므로 이 코드는 무시
+      // but 이 부분을 삭제해서 슬라이드가 뜨지 않았음 
+
+      $('.bxslider').bxSlider({
+        auto: true,
+        autoControls: true,
+        stopAutoOnClick: true,
+        pager: true,
+        slideWidth: 600
+      });
+
+      lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true
+        // script문을 복붙 -> jquery이므로 ready 아래에 두어야 함
+      })
+    });
+
+
+  </script>
+
+  <style>
+    body {
+      width: 1000px;
+      margin: 0 auto;
+    }
+
+    div#map {
+      width: 500px;
+      height: 500px
+    }
+
+    /* 지도가 출력되는 틀의 size 지정 */
+
+    .bx-wrapper {
+      margin-bottom: 10px;
+    }
+
+    /* 위아래는 margin 0(css 부분의 이미지 width가 1000이므로), 좌우로는 margin을 auto로 두어 이미지 슬라이드를 가운데 정렬 */
+    /*  뷰포트에 출력되는 부분이므로 body 부분에 기술해야 함 */
+    div.bx-controls-auto,
+    div.bx-pager {
+      display: none;
+    }
+
+    div.light {
+      text-align: center;
+    }
+
+    a.lb img {
+      width: 100px;
+    }
+
+    /* 보통 이미지는 너비와 높이를 동시에 줄이지 않는다 */
+    /* width만 조정해도 height는 자동으로 조절됨 */
+  </style>
+
+
+</head>
+
+<body>
+  <!-- bxslider의 html 코드 복붙 -->
+  <div class="bxslider">
+    <div><img src="../img/imgs/img_forest.jpg"></div>
+    <div><img src="../img/imgs/img_mountains.jpg"></div>
+    <div><img src="../img/imgs/img_snow_wide.jpg"></div>
+    <!-- 이미지 슬라이드는 사이즈가 동일한 이미지들로 구성할 것 -->
+    <!-- 이미지 경로를 /imgs/로만 입력해서 오류가 났음 -->
+  </div>
+
+
+
+  <div class="light">
+    <a class="lb" href="../img/imgs/cat.jpg" data-lightbox="roadtrip"><img src="../img/imgs/cat.jpg" alt=""></a>
+    <a class="lb" href="../img/imgs/img1-2.jpg" data-lightbox="roadtrip"><img src="../img/imgs/img1-2.jpg" alt=""></a>
+    <a class="lb" href="../img/imgs/img3.jpg" data-lightbox="roadtrip"><img src="../img/imgs/img3.jpg" alt=""></a>
+    <!-- class = "lb" - a[href][data-lightbox]를 입력하면 위와 같은 템플릿이 나옴: 속성값은 []에 넣어주기 때문 -->
+    <a class="lb" href="../img/imgs/img4.jpg" data-lightbox="roadtrip"><img src="../img/imgs/img4.jpg" alt=""></a>
+    <a class="lb" href="../img/imgs/img5.jpg" data-lightbox="roadtrip"><img src="../img/imgs/img5.jpg" alt=""></a>
+    <a class="lb" href="../img/imgs/img6.jpg" data-lightbox="roadtrip"><img src="../img/imgs/img6.jpg" alt=""></a>
+    <a class="lb" href="../img/imgs/img_lights.jpg" data-lightbox="roadtrip"><img src="../img/imgs/img_lights.jpg"
+        alt=""></a>
+    <a class="lb" href="../img/imgs/img_5terre.jpg" data-lightbox="roadtrip"><img src="../img/imgs/img_5terre.jpg"
+        alt=""></a>
+  </div>
+
+  <!-- 구글지도 -->
+  <div id="map">
+  </div>
+  <script>
+    //구글 지도
+    let map;
+    let image;
+    let marker;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        // 37.54629139592949, 126.88069030593695
+        center: { lat: 37.54629139592949, lng: 126.88069030593695 }, //위도 경도 : rapa의 위치
+        zoom: 16 //숫자클수록 지도가 자세히보임(zoom-in), 숫자가 작으면 zoom-out 상태
+      });
+      image = new google.maps.MarkerImage('http://www.larva.re.kr/home/img/boximage3.png',
+        new google.maps.Size(100, 100),
+        '',
+        '',
+        new google.maps.Size(100, 100));
+      marker = new google.maps.Marker({
+        // 마커가 위치할 위도와 경도(변수) : 아이콘의 위치
+        position: { lat: 37.54629139592949, lng: 126.88069030593695 },
+        map: map,
+        icon: image, // 마커로 사용할 이미지(변수)
+        title: 'RAPA' // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
+      });
+    }
+  </script>
+
+
+</body>
+
+</html>

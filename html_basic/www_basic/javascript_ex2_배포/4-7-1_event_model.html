@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- script, style tag는 head tag 안에 넣는 것이 일반적 -->
+    <!-- element 자체를 handling 할 때는 body tag 안에 입력 -->
+    <title>Event Model</title>
+    <meta content="text/html; charset=utf-8">
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // document는 body를 가리킴. body에 있는 코드들이 모두 load되면 ({}) 속 코드를 하나씩 실행한다
+        const $textarea = document.querySelector('textarea')
+        // querySelector는 body 속 요소를 가져오는 함수 -> textarea를 변수(식별자)에 대입
+        const $h1 = document.querySelector('h1')
+
+        $textarea.addEventListener('keyup', (event) => {
+          // keyup되는 이벤트를 받은 textarea의 값이 event에 저장됨
+          // 키보드 이벤트에 keypress, keyup이 있음
+          const length = $textarea.value.length
+          $h1.textContent = `현재 글자 수: ${length}`
+        })
+      })
+    </script>
+    <style>
+      li, p { font-size: 16pt;}
+    </style>
+  </head>
+  <body>
+    <h1>현재 글자수 : 0</h1>
+    <textarea></textarea>
+    <h1>이벤트 모델 : 이벤트를 연결하는 방법</h1>
+    <h2> addEventListener() 메소 사용, 표준 이벤트 모델</h2>
+    <ul>
+      <li>keydown : 키가 눌릴때 실행</li>
+      <li>keypress : 키가 입력되었을 때 실행됨</li>      
+      <li>keyup : 키보드에서 키가 떨어질 때 실행</li>
+    </ul>
+    <p>keydown과 keypress는 웹브라우저에 따라 아시아권의 문자를 제대로 처리하지 못해 일반적으로 keyup이벤트 사용</p>
+  </body>
+</html>
